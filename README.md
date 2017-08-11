@@ -2,10 +2,13 @@
 
 ## Graph traversals/Graph search
 
+### Features
+
 Implementation of Depth-First search and Breadth-first search 
 
-Go to /search directory; 
+### Run the project 
+1- Go to /search directory; 
 
-Run with
+2 - Run with
 
 ` python __init__.py `
