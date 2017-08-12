@@ -5,22 +5,6 @@ class Vertex:
         self.__parent = None
         self.__root_distance = None
         self.__description = description
-
-    @property
-    def description(self):
-        return self.__description
-
-    @description.setter
-    def description(self, d):
-        self.__description = d
-    
-    @description.setter
-    def parent(self, p):
-        self.__parent = p
-    
-    @description.setter
-    def root_distance(self, d):
-        self.__root_distance = d
     
     def has_adjacent(self, vertex):
         for a in self.__adjacents:
@@ -39,3 +23,40 @@ class Vertex:
         self.__adjacents.remove(vertex)
         print('Adjacente do vertice ', self.description, ' foi removido: ' , vertex.description)
     
+
+    ###### Properties #####
+    @property
+    def description(self):
+        return self.__description
+
+    @description.setter
+    def description(self, d):
+        self.__description = d
+    
+    @description.setter
+    def parent(self, p):
+        self.__parent = p
+    
+    @description.setter
+    def root_distance(self, d):
+        self.__root_distance = d
+
+    @description.setter
+    def color(self, c):
+        if(c == 'white' or c == 'black' or c == 'gray'):
+            self.__color = c
+        else:
+            raise Exception('Invalid color, setting to white')
+            self.__color = 'white'
+    
+    @property
+    def adjacents(self):
+        return self.__adjacents
+
+    @property
+    def parent(self):
+        return self.__parent
+
+    @property
+    def root_distance(self):
+        return self.__root_distance
