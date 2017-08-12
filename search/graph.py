@@ -106,7 +106,9 @@ class Graph:
         self.dfs()
         for v in self.__vertices:
             if(v.color == 'white'):
+                print 'Is not connected'
                 return False
+        print 'Is connected'
         return True
 
     # Properties #
