@@ -30,10 +30,10 @@ class Graph:
                 v.remove_adjacent(vertex)
 
 
-    def add_edge(self, origin, destination):
-        origin.add_adjacent(destination)
+    def add_edge(self, origin, destination, weight):
+        origin.add_adjacent(destination, weight)
         if(not self.__directed):
-            destination.add_adjacent(origin)
+            destination.add_adjacent(origin, weight)
 
     def remove_edge(self, origin, destination):
         origin.remove_adjacent(destination)
@@ -59,57 +59,11 @@ class Graph:
             graph += v.color
             graph +=  ' with adjacents: '
             for adj in v.adjacents:
-                graph +=  adj.description
+                graph +=  adj[0].description
                 graph += ' '
             graph += '\n'
         return graph
-
     
-    
-    # Busca em largura
-    def bfs(self):
-        fila_vertices = []
-        self.initialize_vertices()
-        index = randint(0, len(self.__vertices) -1)
-        root = self.__vertices[index]
-        root.color = 'gray'
-        root.root_distance = 0
-        print 'A raiz dessa busca é ', root.description
-        fila_vertices.append(root)
-        vertice_atual = None
-
-        while(fila_vertices):
-            vertice_atual = fila_vertices.pop()
-            print 'Vertice visitado: ', vertice_atual.description
-            for adj in vertice_atual.adjacents:
-                print 'adj: ', adj.description
-                if( adj.color == 'white'):
-                    adj.color = 'gray'
-                    adj.root_distance = vertice_atual.root_distance + 1
-                    adj.parent = vertice_atual
-                    fila_vertices.insert(0, adj)
-            vertice_atual.color = 'black'
-
-    
-    def search(self, vertex):
-        print 'Visited vertex: ' , vertex.description
-        vertex.color = 'gray'
-        for adj in vertex.adjacents:
-            if(adj.color == 'white'):
-                adj.parent = vertex
-                self.search(adj)
-        vertex.color = 'black'
-
-
-    # Busca em profundidade
-    def dfs(self):
-        self.initialize_vertices()
-        index = randint(0, len(self.__vertices) -1)
-        root = self.__vertices[index]
-        root.color = 'gray'
-        root.root_distance = 0
-        print 'A raiz dessa busca é: ', root.description
-        self.search(root)
 
     def is_connected(self):
         self.dfs()
