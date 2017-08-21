@@ -13,6 +13,6 @@ for index, elem in enumerate(r.get_input_file()):
     else:
         v1 = g.add_vertex(Vertex(elem[0]))
         v2 = g.add_vertex(Vertex(elem[1]))
-        g.add_edge(v1, v2)
+        g.add_edge(v1, v2, elem[2])
 
 print g

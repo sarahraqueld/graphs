@@ -16,8 +16,8 @@ class Vertex:
         for a in self.__adjacents:
                 print a.__description
 
-    def add_adjacent(self, vertex):
-        self.__adjacents.append(vertex)
+    def add_adjacent(self, vertex, weight):
+        self.__adjacents.append([vertex, weight])
 
     def remove_adjacent(self, vertex):
         self.__adjacents.remove(vertex)
