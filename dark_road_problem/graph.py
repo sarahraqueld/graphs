@@ -74,6 +74,10 @@ class Graph:
         print 'Is connected'
         return True
 
+    def get_sorted_edges(self):
+        self.__vertices.adjacents[1].sort()
+        
+
     # Properties #
 
     @property
