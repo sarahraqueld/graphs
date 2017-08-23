@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-class Vertex:
+class AbstractVertex:
     def __init__(self, description):
         self.__adjacents = {}
         self.__parent = None
@@ -38,7 +38,7 @@ class Vertex:
     def adjacents(self):
         return self.__adjacents
 
-class Graph:
+class AbstractGraph:
     def __init__(self, directed):
         if( not isinstance(directed, bool)):
             raise Exception('Problem with args')
@@ -48,7 +48,7 @@ class Graph:
     def add_vertex(self, description):
 	if description in self.vertices:
 		return self.vertices[description]
-        vertex = Vertex(description)
+        vertex = AbstractVertex(description)
         self.vertices[description] = vertex
         return vertex
 

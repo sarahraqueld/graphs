@@ -1,14 +1,13 @@
 import sys
-sys.path.insert(0, '/home/sarahraqueld/graphs/graph_structure')
+sys.path.append('/home/sarahraqueld/graphs/graph_structure')
 
 
-from graph import Graph
-from graph import Vertex
-import sys
+from graph import AbstractGraph
+from graph import AbstractVertex
 from readinput import readinput
 r = readinput()
 
-g = Graph(False)
+g = AbstractGraph(False)
 
 
 
