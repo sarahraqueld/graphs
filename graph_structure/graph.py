@@ -46,6 +46,8 @@ class Graph:
         self.__directed = directed
 
     def add_vertex(self, description):
+	if description in self.vertices:
+		return self.vertices[description]
         vertex = Vertex(description)
         self.vertices[description] = vertex
         return vertex
