@@ -1,18 +1,30 @@
+import sys
+sys.path.insert(0, '/home/sarahraqueld/graphs/graph_structure')
+
 
 from graph import Graph
-from vertex import Vertex
+from graph import Vertex
 import sys
 from readinput import readinput
 r = readinput()
 
 g = Graph(False)
 
+
+
 for index, elem in enumerate(r.get_input_file()):
     if(index == 0 or (elem[0] == '0' and elem[1] == '0')):
     	pass
     else:
-        v1 = g.add_vertex(Vertex(elem[0]))
-        v2 = g.add_vertex(Vertex(elem[1]))
-        g.add_edge(v1, v2, elem[2])
+        v1 = g.add_vertex(elem[0])
+        v2 = g.add_vertex(elem[1])
+        g.add_edge(elem[0], elem[1], int(elem[2]))
 
-print g
+for v in g:
+    for w in v.get_adjacents():
+        vid = v.description
+        wid = w.description
+        print '( %s , %s, %3d)'  % ( vid, wid, v.get_weight(w))
+
+for v in g:
+    print 'Vertices: %s %s ' %(v.description, g.vertices[v.get_description()])
