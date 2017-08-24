@@ -1,24 +1,24 @@
 import sys
-sys.path.append('/home/sarahraqueld/graphs/graph_structure')
-
-
-from graph import AbstractGraph
-from graph import AbstractVertex
 from readinput import readinput
+from spanningTree import Graph
+from spanningTree import Vertex
+
 r = readinput()
 
-g = AbstractGraph(False)
+g = Graph(False)
 
-
+vertices_number= 0
 
 for index, elem in enumerate(r.get_input_file()):
-    if(index == 0 or (elem[0] == '0' and elem[1] == '0')):
-    	pass
+    if(index == 0):
+    	vertices_number = int(elem[1])
+    elif(elem[0] == '0' and elem[1] == '0'):
+        pass
     else:
         v1 = g.add_vertex(elem[0])
         v2 = g.add_vertex(elem[1])
         g.add_edge(elem[0], elem[1], int(elem[2]))
-
+'''
 for v in g:
     for w in v.get_adjacents():
         vid = v.description
@@ -27,3 +27,7 @@ for v in g:
 
 for v in g:
     print 'Vertices: %s %s ' %(v.description, g.vertices[v.get_description()])
+'''
+st = g.get_spanning_tree(vertices_number-1)
+print "Spanning tree deve ter " , vertices_number - 1, " arestas"
+print "Spanning tree gerada tem " , len(st), " arestas"
