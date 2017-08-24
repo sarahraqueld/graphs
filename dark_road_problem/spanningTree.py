@@ -1,6 +1,6 @@
 import sys
 
-sys.path.insert(0, 'C:\Users\sarahferreira\projects\graphs\graph_structure')
+sys.path.insert(0, '/home/carlos/graphs/graph_structure')
 
 from graph import AbstractGraph
 from graph import AbstractVertex
@@ -37,16 +37,23 @@ class Graph(AbstractGraph):
 
 		while(len(spanningtree) != size):
 			c = next(reversed(od.items()))
-			'''
-			todo: verificar se a inserção da aresta irá causar um ciclo
-			st.add_edge(c[0][1], c[0][2], c[1])
-			'''
+			v = Vertex(c[0][0])
+			v2 = Vertex(c[0][2])
+			st.add_edge(c[0][0], c[0][2], c[1])
+			print c[0][0], c[0][2], c[1]
+			if(st.is_cyclic()):
+				print "IS CYCLIC"
+				print c[0][0], c[0][2]
+				st.remove_edge(c[0][0], c[0][2])
+			else:
+				print "IS NOT"
+
 			od.popitem()
 			a = od.popitem()
 			spanningtree[a[0]] = a[1]
 		#print spanningtree
-		print collections.OrderedDict(sorted(spanningtree.items(),  key=lambda t: t[1]))
-		return spanningtree
+		#print collections.OrderedDict(sorted(spanningtree.items(),  key=lambda t: t[1]))
+		return st
 				
 
 

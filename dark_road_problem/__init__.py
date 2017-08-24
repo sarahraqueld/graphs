@@ -18,6 +18,10 @@ for index, elem in enumerate(r.get_input_file()):
         v1 = g.add_vertex(elem[0])
         v2 = g.add_vertex(elem[1])
         g.add_edge(elem[0], elem[1], int(elem[2]))
+
+   
+
+
 '''
 for v in g:
     for w in v.get_adjacents():
@@ -27,7 +31,21 @@ for v in g:
 
 for v in g:
     print 'Vertices: %s %s ' %(v.description, g.vertices[v.get_description()])
+
+
 '''
-st = g.get_spanning_tree(vertices_number-1)
-print "Spanning tree deve ter " , vertices_number - 1, " arestas"
-print "Spanning tree gerada tem " , len(st), " arestas"
+
+#print g.is_cyclic()
+st = g.get_spanning_tree((vertices_number-1)*2)
+#print "Spanning tree deve ter " , vertices_number - 1, " arestas"
+#print "Spanning tree gerada tem " , len(st), " arestas"
+
+
+for v in st:
+    for w in v.get_adjacents():
+        vid = v.description
+        wid = w.description
+        print '( %s , %s, %3d)'  % ( vid, wid, v.get_weight(w))
+
+#for v in g:
+    #print 'Vertices: %s %s ' %(v.description, g.vertices[v.get_description()])
