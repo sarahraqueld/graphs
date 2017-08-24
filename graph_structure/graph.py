@@ -56,6 +56,10 @@ class AbstractGraph:
         return iter(self.vertices.values())
 
     def add_edge(self, origin, destination, weight):
+        if origin not in self.vertices:
+            self.add_vertex(origin)
+        if destination not in self.vertices:
+            self.add_vertex(destination)
         self.vertices[origin].add_adjacent(self.vertices[destination], weight)
         if(not self.__directed):
             self.vertices[destination].add_adjacent(self.vertices[origin], weight)
