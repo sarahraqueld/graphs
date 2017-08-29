@@ -49,3 +49,4 @@ for v in st:
 
 #for v in g:
     #print 'Vertices: %s %s ' %(v.description, g.vertices[v.get_description()])
+

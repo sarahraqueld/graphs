@@ -1,6 +1,6 @@
 import sys
 
-sys.path.insert(0, '/home/carlos/graphs/graph_structure')
+sys.path.insert(0, '/home/sarahraqueld/graphs/graph_structure')
 
 from graph import AbstractGraph
 from graph import AbstractVertex
@@ -30,12 +30,38 @@ class Graph(AbstractGraph):
 		od = collections.OrderedDict(sorted(edges.items(),  key=lambda t: t[1]))
 		return od
 
+	
+
+	def is_cyclic_visit(self, vertex):
+		print "Visited vertex: " , vertex.description
+		vertex.color = 'gray'
+
+		for adj in vertex.get_adjacents():
+			if (adj.color == 'gray' and adj != vertex.parent):
+				return True
+			if (adj.color == 'white'):
+				adj.parent = vertex
+				if(self.is_cyclic_visit(adj)):
+					return True
+		vertex.color = 'black'
+		return False
+
+
+	def is_cyclic(self):
+		for v in self.vertices.values():
+			if(v.color == 'white'):
+				if(self.is_cyclic_visit(v)):
+					return True
+
+		return False
+
+
 	def get_spanning_tree(self, size):
 		od = self.get_sorted_edges()
 		spanningtree = {}
 		st = Graph(False)
 
-		while(len(spanningtree) != size):
+		while(len(spanningtree) != size and od):
 			c = next(reversed(od.items()))
 			v = Vertex(c[0][0])
 			v2 = Vertex(c[0][2])

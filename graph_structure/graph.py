@@ -6,6 +6,7 @@ class AbstractVertex:
         self.__adjacents = {}
         self.__parent = None
         self.__description = description
+        self.color = 'white'
     
     def add_adjacent(self, adjacent, weight=0):
         self.__adjacents[adjacent] = weight
