@@ -70,14 +70,25 @@ class AbstractGraph:
     def __iter__(self):
         return iter(self.vertices.values())
 
+    def get_qtd_arestas(self):
+        qtd = 0
+        for v in self:
+            for w in v.get_adjacents():
+                qtd = qtd + 1
+        return qtd
+
     def add_edge(self, origin, destination, weight):
         if origin not in self.vertices:
             self.add_vertex(origin)
         if destination not in self.vertices:
             self.add_vertex(destination)
-        self.vertices[origin].add_adjacent(self.vertices[destination], weight)
-        if(not self.__directed):
-            self.vertices[destination].add_adjacent(self.vertices[origin], weight)
+        if self.vertices[destination] not in self.vertices[origin].get_adjacents():
+            print "adicionando"
+            self.vertices[origin].add_adjacent(self.vertices[destination], weight)
+            if(not self.__directed):
+                self.vertices[destination].add_adjacent(self.vertices[origin], weight)
+        else:
+            print "nao adicionou aresta"
 
     def remove_edge(self, origin, destination):
         self.vertices[origin].remove_adjacent(self.vertices[destination])

@@ -1,6 +1,6 @@
 import sys
 
-sys.path.insert(0, '/home/carlos/graphs/graph_structure')
+sys.path.insert(0, 'C:\Users\sarahferreira\projects\graphs\graph_structure')
 
 from graph import AbstractGraph
 from graph import AbstractVertex
@@ -23,35 +23,34 @@ class Graph(AbstractGraph):
 		AbstractGraph.__init__(self, directed)
 		
 	def get_sorted_edges(self):
+		print "Ordenando arestas"
 		edges = {}
 		for v in self:
 			for a in v.get_adjacents():
 				edges[v.description + "," + a.description] = v.get_weight(a)
-		od = collections.OrderedDict(sorted(edges.items(),  key=lambda t: t[1]))
+		od = collections.OrderedDict(sorted(edges.items(),  key=lambda t: t[1], reverse = True))
+		print "ARESTAS ORDENADAS:"
+		print od , "----------------------------"
 		return od
 
 	def get_spanning_tree(self, size):
+		print "TAMANHO DEVE SER " , size
 		od = self.get_sorted_edges()
-		spanningtree = {}
 		st = Graph(False)
 
-		while(len(spanningtree) != size):
+		while(st.get_qtd_arestas() != size and od):
 			c = next(reversed(od.items()))
+			print "NEXT: ", c[0][0], c[0][2], c[1]
 			v = Vertex(c[0][0])
 			v2 = Vertex(c[0][2])
 			st.add_edge(c[0][0], c[0][2], c[1])
-			print c[0][0], c[0][2], c[1]
+			
 			if(st.is_cyclic()):
-				print "IS CYCLIC"
 				print c[0][0], c[0][2]
 				st.remove_edge(c[0][0], c[0][2])
-			else:
-				print "IS NOT"
-
-			od.popitem()
+				print "remove"
 			a = od.popitem()
-			spanningtree[a[0]] = a[1]
-		#print spanningtree
+			print "pop item" , a
 		#print collections.OrderedDict(sorted(spanningtree.items(),  key=lambda t: t[1]))
 		return st
 				
