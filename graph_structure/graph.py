@@ -6,9 +6,14 @@ class AbstractVertex:
         self.__adjacents = {}
         self.__parent = None
         self.__description = description
+        self.color = 'white'
+        self.root_distance = None
     
     def add_adjacent(self, adjacent, weight=0):
         self.__adjacents[adjacent] = weight
+
+    def remove_adjacent(self, adjacent):
+        del self.__adjacents[adjacent]
 
     def __str__(self):
         retorno = self.__description + ' with adjacents: '
@@ -37,6 +42,10 @@ class AbstractVertex:
     @property
     def adjacents(self):
         return self.__adjacents
+    
+    @property
+    def parent(self):
+        return self.__parent
 
 class AbstractGraph:
     def __init__(self, directed):
@@ -44,6 +53,12 @@ class AbstractGraph:
             raise Exception('Problem with args')
         self.vertices = {}
         self.__directed = directed
+    
+    def initialize_vertices(self):
+        for v in self.vertices.values():
+            v.__parent = None
+            v.color = 'white'
+            v.root_distance = None
 
     def add_vertex(self, description):
 	if description in self.vertices:
@@ -64,8 +79,35 @@ class AbstractGraph:
         if(not self.__directed):
             self.vertices[destination].add_adjacent(self.vertices[origin], weight)
 
+    def remove_edge(self, origin, destination):
+        self.vertices[origin].remove_adjacent(self.vertices[destination])
+        self.vertices[destination].remove_adjacent(self.vertices[origin])
+
     def get_vertices(self):
         return self.vertices.keys()
+
+    
+    def is_cyclic_visit(self, vertex):
+        vertex.color = 'gray'
+
+        for adj in vertex.adjacents:
+            if(adj.color == 'gray' and adj != vertex.parent):
+                return True
+            if(adj.color == 'white'):
+                adj.parent = vertex
+                if(self.is_cyclic_visit(adj)):
+                    return True
+        vertex.color = 'black'
+        return False
+
+    def is_cyclic(self):
+        self.initialize_vertices()
+        for v in self.vertices.values():
+            if(v.color == 'white'):
+                if(self.is_cyclic_visit(v)):
+                    return True
+        return False
+
 
     # Properties #
 
