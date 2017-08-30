@@ -33,6 +33,13 @@ class Graph(AbstractGraph):
 		print od , "----------------------------"
 		return od
 
+	def get_weight(self):
+		peso = 0
+		for v in self:
+			for a in v.get_adjacents():
+				peso = peso + v.get_weight(a)
+		return peso/2
+
 	def get_spanning_tree(self, size):
 		print "TAMANHO DEVE SER " , size
 		od = self.get_sorted_edges()

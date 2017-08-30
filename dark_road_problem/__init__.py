@@ -21,24 +21,8 @@ for index, elem in enumerate(r.get_input_file()):
 
    
 
-'''
-for v in g:
-    for w in v.get_adjacents():
-        vid = v.description
-        wid = w.description
-        print '( %s , %s, %3d)'  % ( vid, wid, v.get_weight(w))
-
-for v in g:
-    print 'Vertices: %s %s ' %(v.description, g.vertices[v.get_description()])
-
-
-'''
-
-#print g.is_cyclic()
 print "Spanning tree deve ter " , (vertices_number - 1)*2, " arestas"
 st = g.get_spanning_tree((vertices_number-1)*2)
-#print "Spanning tree gerada tem " , len(st), " arestas"
-
 
 for v in st:
     for w in v.get_adjacents():
@@ -46,7 +30,5 @@ for v in st:
         wid = w.description
         print '( %s , %s, %3d)'  % ( vid, wid, v.get_weight(w))
 
-print st.get_qtd_arestas()
-
-#for v in g:
-    #print 'Vertices: %s %s ' %(v.description, g.vertices[v.get_description()])
+print "quantidade economizada::::::::::::"
+print g.get_weight() - st.get_weight()
